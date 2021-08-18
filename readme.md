@@ -6,4 +6,10 @@ pipenv install uvicorn
 sudo pip3 install numpy
 
 #To start app
-unicorn main:app --reload
+uvicorn main:app --reload
+
+#To deploy in gcp
+python3 -V
+virtualenv -V
+virtualenv env
+source env/bin/activate
