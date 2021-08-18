@@ -22,3 +22,13 @@ gunicorn -w 4 -k uvicorn.workers.UvicornWorker main:app
 gcloud app create
 gcloud app deply app.yml
 
+
+# output
+descriptor:                  [/home/nishancse/rrs-fastapi/app.yml]
+source:                      [/home/nishancse/rrs-fastapi]
+target project:              [resumerankingsystem]
+target service:              [default]
+target version:              [20210818t190234]
+target url:                  [https://resumerankingsystem.el.r.appspot.com]
+target service account:      [App Engine default service account]
+
