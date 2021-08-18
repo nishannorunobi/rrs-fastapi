@@ -1,2 +1,2 @@
 runtime: python3.7
-entrypoint: gunicorn -w 4 -k uvicorn.workers.UnicornWorker main:app
+entrypoint: gunicorn -w 4 -k uvicorn.workers.UvicornWorker main:app
