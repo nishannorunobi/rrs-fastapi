@@ -21,6 +21,14 @@ async def root():
 #To access api doc
 # {base-url}/docs
 
+#Doc name list
+@app.get('/resume-names')
+async def root():
+    pickle_in = open("./resources/doc_name_list.pickle","rb")
+    doc_name_list = pickle.load(pickle_in)
+    pickle_in.close()
+    return doc_name_list
+
 #Overall rank score list
 @app.get('/overall-ranks')
 async def root():
