@@ -52,3 +52,10 @@ async def root():
     similarity_socre_list = pickle.load(pickle_in)
     pickle_in.close()
     return similarity_socre_list
+
+@app.get('/get-paginated-data')
+async def getPaginatedData(page: int = 1, size: int = 50):
+    pickle_in = open("./resources/similarity_socre_list.pickle","rb")
+    similarity_socre_list = pickle.load(pickle_in)
+    pickle_in.close()
+    return [similarity_socre_list[i:i+size] for i in range(page-1, len(similarity_socre_list), size)]
