@@ -55,7 +55,7 @@ async def root():
 
 @app.get('/get-paginated-data')
 async def getPaginatedData(page: int = 1, size: int = 50):
-    pickle_in = open("./resources/similarity_socre_list.pickle","rb")
-    similarity_socre_list = pickle.load(pickle_in)
+    pickle_in = open("./resources/over_all_ranking_list.pickle","rb")
+    over_all_ranking_list = pickle.load(pickle_in)
     pickle_in.close()
-    return similarity_socre_list[page*size-size:page*size]
+    return over_all_ranking_list[page*size-size:page*size]
