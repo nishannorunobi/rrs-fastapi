@@ -56,7 +56,7 @@ async def root():
 
 @app.get('/get-paginated-data')
 async def getPaginatedData(page: int = 1, size: int = 50):
-    df = pd.read_pickle("./trained_dataframe.pkl")
+    df = pd.read_pickle("./resources/trained_dataframe.pkl")
     paginated_rows_df = df[page*size-size:page*size]
     df_to_dict = paginated_rows_df.set_index('doc_name').T.to_dict('list')
     return df_to_dict
