@@ -1,6 +1,7 @@
 from fastapi import FastAPI
 from fastapi.middleware.cors import CORSMiddleware
 import pickle
+import pandas as pd
 
 app = FastAPI()
 
@@ -55,7 +56,7 @@ async def root():
 
 @app.get('/get-paginated-data')
 async def getPaginatedData(page: int = 1, size: int = 50):
-    pickle_in = open("./resources/over_all_ranking_list.pickle","rb")
-    over_all_ranking_list = pickle.load(pickle_in)
-    pickle_in.close()
-    return over_all_ranking_list[page*size-size:page*size]
+    df = pd.read_pickle("./trained_dataframe.pkl")
+    paginated_rows_df = df[page*size-size:page*size]
+    df_to_dict = paginated_rows_df.set_index('doc_name').T.to_dict('list')
+    return df_to_dict

@@ -2,7 +2,10 @@
 # Inside the porject directory
 /usr/local/bin/python3.7 -m venv env
 source env/bin/activate
-pip3 install -r pre_requirements.txt
+pip3 install -r requirements.txt
+
+# to Exit from virualenv
+deactivate
 
 # To start app
 unicorn main:app --reload
