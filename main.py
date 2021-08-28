@@ -1,7 +1,6 @@
 from fastapi import FastAPI
 from fastapi.middleware.cors import CORSMiddleware
 import pickle
-import pandas as pd
 
 app = FastAPI()
 
@@ -13,6 +12,12 @@ app.add_middleware(
     allow_methods=['*'],
     allow_headers=['*'],
 )
+
+pkl_file = open("./resources/resume_dict.pkl","rb")
+resume_data_dict = pickle.load(pkl_file)
+pkl_file.close()
+resume_dict_key_list=list(resume_data_dict.keys())
+resume_dict_len = len(resume_dict_key_list)
 
 #Write APIS
 @app.get('/')
@@ -55,8 +60,20 @@ async def root():
     return similarity_socre_list
 
 @app.get('/get-paginated-data')
-async def getPaginatedData(page: int = 1, size: int = 50):
-    df = pd.read_pickle("./resources/trained_dataframe.pkl")
-    paginated_rows_df = df[page*size-size:page*size]
-    df_to_dict = paginated_rows_df.set_index('doc_name').T.to_dict('list')
-    return df_to_dict
+async def getPaginatedData(page: int = 1, size: int = 5):
+    total_pages = resume_dict_len / size
+    if page > total_pages:
+        return {}
+    
+    offset = page*size
+    start_index = offset - size
+    if start_index < 0:
+        start_index = 0
+
+    if offset > resume_dict_len:
+        offset = resume_dict_len
+
+    keys_to_extract = resume_dict_key_list[start_index : offset]
+
+    paginated_resume_data_dict = {key: resume_data_dict[key] for key in keys_to_extract}
+    return paginated_resume_data_dict

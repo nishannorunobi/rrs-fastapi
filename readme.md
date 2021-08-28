@@ -7,6 +7,9 @@ pip3 install -r requirements.txt
 # to Exit from virualenv
 deactivate
 
+# To delete virtual environment, delete env directory
+rm -rf env
+
 # To start app
 unicorn main:app --reload
 
