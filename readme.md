@@ -19,3 +19,7 @@ gunicorn -w 4 -k uvicorn.workers.UvicornWorker main:app
 
 # Before final deployment
 pip3 freeze > requirements.txt
+
+
+# to generate procfile to make a perfect installation in herokun
+pipenv lock
