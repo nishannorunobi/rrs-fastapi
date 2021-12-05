@@ -13,11 +13,10 @@ app.add_middleware(
     allow_headers=['*'],
 )
 
-pkl_file = open("./resources/resume_dict.pkl","rb")
-resume_data_dict = pickle.load(pkl_file)
+pkl_file = open("./resources/resume_list.pkl","rb")
+resume_list = pickle.load(pkl_file)
 pkl_file.close()
-resume_dict_key_list=list(resume_data_dict.keys())
-resume_dict_len = len(resume_dict_key_list)
+total_resume = len(resume_list)
 
 #Write APIS
 @app.get('/')
@@ -61,7 +60,7 @@ async def root():
 
 @app.get('/get-paginated-data')
 async def getPaginatedData(page: int = 1, size: int = 5):
-    total_pages = resume_dict_len / size
+    total_pages = total_resume / size
     if page > total_pages:
         return {}
     
@@ -70,10 +69,8 @@ async def getPaginatedData(page: int = 1, size: int = 5):
     if start_index < 0:
         start_index = 0
 
-    if offset > resume_dict_len:
-        offset = resume_dict_len
+    if offset > total_resume:
+        offset = total_resume
 
-    keys_to_extract = resume_dict_key_list[start_index : offset]
-
-    paginated_resume_data_dict = {key: resume_data_dict[key] for key in keys_to_extract}
-    return paginated_resume_data_dict
+    paginated_resume_list = resume_list[start_index : offset]
+    return paginated_resume_list

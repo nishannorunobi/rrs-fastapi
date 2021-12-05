@@ -21,5 +21,5 @@ gunicorn -w 4 -k uvicorn.workers.UvicornWorker main:app
 pip3 freeze > requirements.txt
 
 
-# to generate procfile to make a perfect installation in herokun
+# to generate procfile to mention python version, so same version would be in heroku
 pipenv lock
