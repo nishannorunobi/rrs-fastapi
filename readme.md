@@ -1,14 +1,11 @@
-# Install virtualenv packages in your local python environment
-pip3 install virtualenv
-
 # Install VSCODE python plugins 
 IntelliSense (Pylance), Linting, Debugging (multi-threaded, remote), Jupyter Notebooks, code formatting, refactoring, unit tests
 
 # Create a Virtual Environment with local version
-virtualenv -m myenv
+python -m venv rrsenv
 
 # Create a Virtual Environment with a specific version
-virtualenv -p F:\python\python3.7\python.exe myenv
+F:\python\python3.7\python.exe -m venv rrsenv
 
 # Enter into virtual environment
 source env/bin/activate
@@ -21,7 +18,7 @@ pip3 install -r requirements.txt
 deactivate
 
 # To delete virtual environment, delete env directory
-rm -rf env
+rm -rf rrsenv
 
 # To start app
 uvicorn main:app --reload
@@ -36,7 +33,6 @@ pip3 freeze > requirements.txt
 
 # to generate procfile to mention python version, so same version would be in heroku
 pipenv lock
-
 
 # Access swagger api
 http://localhost:8080/docs
