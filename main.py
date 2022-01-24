@@ -2,6 +2,8 @@ from fastapi import FastAPI
 from fastapi.middleware.cors import CORSMiddleware
 import pickle
 
+import numpy
+
 app = FastAPI()
 
 
@@ -74,3 +76,27 @@ async def getPaginatedData(page: int = 1, size: int = 5):
 
     paginated_resume_list = resume_list[start_index : offset]
     return paginated_resume_list
+
+import numpy as np;
+
+@app.get('/get-chart-list')
+async def getDesiredData(page: int = 1, size: int = 5):
+    total_pages = total_resume / size
+    if page > total_pages:
+        return {}
+    
+    offset = page*size
+    start_index = offset - size
+    if start_index < 0:
+        start_index = 0
+
+    if offset > total_resume:
+        offset = total_resume
+
+    paginated_resume_list = resume_list[start_index : offset]
+    
+    empty_array = [['resumes','overall','similarity','years']];
+    for obj in paginated_resume_list:
+        arr = [[obj.get('doc_name'),obj.get('performance'),obj.get('similarity_score_1'),obj.get('years_of_experience')]];
+        empty_array = empty_array + arr;
+    return empty_array;

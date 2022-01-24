@@ -35,4 +35,4 @@ pip3 freeze > requirements.txt
 pipenv lock
 
 # Access swagger api
-http://localhost:8080/docs
+http://127.0.0.1:8000/docs
