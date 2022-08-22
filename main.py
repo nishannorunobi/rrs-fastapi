@@ -1,6 +1,8 @@
 from fastapi import FastAPI
 from fastapi.middleware.cors import CORSMiddleware
 import pickle
+from starlette.responses import FileResponse
+from starlette.responses import StreamingResponse
 
 import numpy
 
@@ -25,8 +27,20 @@ total_resume = len(resume_list)
 async def root():
     return {'hello' : 'world'}
 
-#To access api doc
-# {base-url}/docs
+@app.get('/resume-category')
+async def root():
+    pickle_in = open("./resources/resume_category.pkl","rb")
+    doc_category = pickle.load(pickle_in)
+    pickle_in.close()
+    return doc_category
+
+#Doc name list
+@app.get('/download/{file_name}')
+async def root(file_name: str):
+    file_name = 'resume_sample.pdf'
+    file_like = open('./resources/'+file_name, mode="rb")
+    return StreamingResponse(file_like, media_type="application/pdf")
+    #return FileResponse('./resources/'+file_name, media_type='application/octet-stream',filename=file_name)
 
 #Doc name list
 @app.get('/resume-names')

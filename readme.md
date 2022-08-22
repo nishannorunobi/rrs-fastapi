@@ -8,7 +8,7 @@ python -m venv rrsenv
 F:\python\python3.7\python.exe -m venv rrsenv
 
 # Enter into virtual environment
-source env/bin/activate
+.\rrsenv\Scripts\activate
 
 # Following Commands has been executed to run the project successfully
 # Inside the porject directory
@@ -30,9 +30,9 @@ gunicorn -w 4 -k uvicorn.workers.UvicornWorker main:app
 # Before final deployment
 pip3 freeze > requirements.txt
 
-
 # to generate procfile to mention python version, so same version would be in heroku
 pipenv lock
 
 # Access swagger api
 http://127.0.0.1:8000/docs
+
